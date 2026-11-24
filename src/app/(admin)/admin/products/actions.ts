@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { z } from "zod";
 import type { Prisma } from "@/generated/prisma/client";
 import { Level, ProductStatus, ProductType, ProductVisibility } from "@/generated/prisma/enums";
-import { PRODUCT_TYPE_LABELS } from "@/lib/labels";
+import { PRODUCT_TYPE_NOUNS } from "@/lib/labels";
 import { safeHref, slugify } from "@/lib/utils";
 import { ActionError, staffAction } from "@/server/action";
 import { audit } from "@/server/audit";
@@ -40,7 +40,7 @@ export const createProduct = staffAction(
   z.object({ type: z.enum(ProductType), title: z.string().trim().min(2, "Give it a title").max(140) }),
   async ({ type, title }, ctx) => {
     const product = await db.product.create({ data: { type, title, slug: await uniqueSlug(title) } });
-    await audit(ctx.user, "product.create", `Created ${PRODUCT_TYPE_LABELS[type].toLowerCase()} “${title}”`, {
+    await audit(ctx.user, "product.create", `Created ${PRODUCT_TYPE_NOUNS[type]} “${title}”`, {
       entityType: "product",
       entityId: product.id,
     });

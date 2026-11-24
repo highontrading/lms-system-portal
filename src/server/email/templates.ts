@@ -1,5 +1,5 @@
 import "server-only";
-import { PRODUCT_TYPE_LABELS } from "@/lib/labels";
+import { PRODUCT_TYPE_NOUNS } from "@/lib/labels";
 import type { ProductType } from "@/generated/prisma/enums";
 import type { EmailContent } from "@/server/email/render";
 import { absoluteUrl } from "@/server/url";
@@ -66,15 +66,15 @@ export const emails = {
     if (input.expiresText) details.push(["Access until", input.expiresText]);
     return {
       subject: `You now have access to ${input.productTitle}`,
-      preheader: `Your ${PRODUCT_TYPE_LABELS[input.productType].toLowerCase()} is ready.`,
+      preheader: `Your ${PRODUCT_TYPE_NOUNS[input.productType]} is ready.`,
       heading: "You're in!",
       paragraphs: input.setupUrl
         ? [
-            `Hi ${firstName(input.name)}, your ${PRODUCT_TYPE_LABELS[input.productType].toLowerCase()} “${input.productTitle}” is ready.`,
+            `Hi ${firstName(input.name)}, your ${PRODUCT_TYPE_NOUNS[input.productType]} “${input.productTitle}” is ready.`,
             "We created an account for you with this email address. Use the button below to sign in and set your password.",
           ]
         : [
-            `Hi ${firstName(input.name)}, your ${PRODUCT_TYPE_LABELS[input.productType].toLowerCase()} “${input.productTitle}” has been added to your library.`,
+            `Hi ${firstName(input.name)}, your ${PRODUCT_TYPE_NOUNS[input.productType]} “${input.productTitle}” has been added to your library.`,
           ],
       details,
       button: input.setupUrl

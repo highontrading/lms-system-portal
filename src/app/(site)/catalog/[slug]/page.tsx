@@ -15,7 +15,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/interactive";
 import { Avatar, Callout } from "@/components/ui/misc";
-import { LEVEL_LABELS, PRODUCT_TYPE_CTA, PRODUCT_TYPE_LABELS } from "@/lib/labels";
+import { LEVEL_LABELS, PRODUCT_TYPE_CTA, PRODUCT_TYPE_NOUNS } from "@/lib/labels";
 import { isStaff } from "@/lib/permissions";
 import { discountPercent, formatDuration, formatMoney, safeHref, stripHtml, truncate } from "@/lib/utils";
 import { isEnrollmentActive, seatsRemaining } from "@/server/access";
@@ -168,7 +168,7 @@ export default async function ProductPage({ params }: Props) {
 
           {product.description ? (
             <section className="mt-9">
-              <h2 className="mb-3 font-display text-xl font-semibold tracking-tight">About this {PRODUCT_TYPE_LABELS[product.type].toLowerCase()}</h2>
+              <h2 className="mb-3 font-display text-xl font-semibold tracking-tight">About this {PRODUCT_TYPE_NOUNS[product.type]}</h2>
               <RichText html={product.description} />
             </section>
           ) : null}

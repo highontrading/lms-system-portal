@@ -25,6 +25,16 @@ export const PRODUCT_TYPE_LABELS: Record<ProductType, string> = {
   BUNDLE: "Bundle",
 };
 
+/** The type as it reads mid-sentence: "your AI agent is ready". */
+export const PRODUCT_TYPE_NOUNS: Record<ProductType, string> = {
+  COURSE: "course",
+  WORKSHOP: "workshop",
+  AGENT: "AI agent",
+  WORKFLOW: "workflow",
+  DIGITAL: "product",
+  BUNDLE: "bundle",
+};
+
 export const PRODUCT_TYPE_PLURALS: Record<ProductType, string> = {
   COURSE: "Courses",
   WORKSHOP: "Workshops",

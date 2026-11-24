@@ -3,7 +3,7 @@ import { Prisma } from "@/generated/prisma/client";
 import type { Enrollment } from "@/generated/prisma/client";
 import type { EnrollmentSource } from "@/generated/prisma/enums";
 import { addDays } from "@/lib/dates";
-import { PRODUCT_TYPE_LABELS } from "@/lib/labels";
+import { PRODUCT_TYPE_NOUNS } from "@/lib/labels";
 import { formatDate } from "@/lib/utils";
 import { issueToken } from "@/server/auth/tokens";
 import { generateLicenseKey } from "@/server/crypto";
@@ -176,7 +176,7 @@ export async function grantAccess(input: GrantInput): Promise<GrantResult> {
       await notify(input.userId, {
         type: "access",
         title: `You now have access to ${product.title}`,
-        body: `Your ${PRODUCT_TYPE_LABELS[product.type].toLowerCase()} is ready in your library.`,
+        body: `Your ${PRODUCT_TYPE_NOUNS[product.type]} is ready in your library.`,
         href: `/learn/${product.slug}`,
       });
     }

@@ -16,7 +16,7 @@ import {
   Play,
   RotateCcw,
 } from "lucide-react";
-import { PRODUCT_TYPE_LABELS } from "@/lib/labels";
+import { PRODUCT_TYPE_LABELS, PRODUCT_TYPE_NOUNS } from "@/lib/labels";
 import { cn, firstParam, formatDate, formatDuration, pluralize, type SearchParams } from "@/lib/utils";
 import { RichText } from "@/components/content";
 import { AssetList } from "@/components/portal/learn/asset-list";
@@ -435,7 +435,7 @@ export default async function ProductHomePage({ params, searchParams }: Props) {
 
       {product.description && activeTab === tabs[0]?.id ? (
         <section className="mt-10 border-t border-border pt-8">
-          <h2 className="mb-3 font-display text-lg font-semibold tracking-tight">About this {PRODUCT_TYPE_LABELS[product.type].toLowerCase()}</h2>
+          <h2 className="mb-3 font-display text-lg font-semibold tracking-tight">About this {PRODUCT_TYPE_NOUNS[product.type]}</h2>
           <RichText html={product.description} small className="max-w-[46rem]" />
         </section>
       ) : null}
