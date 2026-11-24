@@ -24,10 +24,15 @@ export async function rateLimit(key: string, limit: number, windowSeconds: numbe
   return { ok: !row || row.count <= limit, retryAfter };
 }
 
-/** Rate limit keyed by the caller's IP address (falls back to a shared bucket when unknown). */
+/**
+ * Rate limit keyed by the caller's IP address. When the address isn't known (no proxy header),
+ * this limit is skipped rather than throttling every visitor through one shared bucket —
+ * the per-account limits still apply.
+ */
 export async function rateLimitByIp(scope: string, limit: number, windowSeconds: number) {
   const { ip } = await requestMeta();
-  return rateLimit(`${scope}:${ip ?? "unknown"}`, limit, windowSeconds);
+  if (!ip) return { ok: true, retryAfter: 0 };
+  return rateLimit(`${scope}:${ip}`, limit, windowSeconds);
 }
 
 export function retryMessage(retryAfter: number) {
