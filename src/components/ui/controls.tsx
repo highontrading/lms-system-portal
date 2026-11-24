@@ -42,10 +42,14 @@ export function SearchInput({
   const { setParam, pending, searchParams } = useParamSetter();
   const current = searchParams.get(param) ?? "";
   const [value, setValue] = useState(current);
+  const [synced, setSynced] = useState(current);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Follow external changes (back button, "clear filters").
-  useEffect(() => setValue(current), [current]);
+  // Follow external changes to the URL (back button, "clear filters").
+  if (synced !== current) {
+    setSynced(current);
+    setValue(current);
+  }
   useEffect(() => () => void (timer.current && clearTimeout(timer.current)), []);
 
   function update(next: string) {

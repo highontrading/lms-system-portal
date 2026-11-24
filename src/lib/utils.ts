@@ -49,6 +49,7 @@ export function stripHtml(html: string | null | undefined) {
     .replace(/&quot;/g, '"')
     .replace(/&#39;/g, "'")
     .replace(/\s+/g, " ")
+    .replace(/\s+([.,;:!?])/g, "$1")
     .trim();
 }
 

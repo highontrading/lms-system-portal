@@ -796,6 +796,36 @@ async function seedDemo() {
     });
   }
 
+  // Learners who got past the quiz have a passing attempt on record.
+  const quizLessonIndex = 5;
+  const quiz = await db.quiz.findUnique({ where: { lessonId: courseLessons[quizLessonIndex] }, include: { questions: true } });
+  if (quiz) {
+    const answers = Object.fromEntries(
+      quiz.questions.map((question) => [
+        question.id,
+        (question.options as { id: string; correct: boolean }[]).filter((option) => option.correct).map((option) => option.id),
+      ]),
+    );
+    const maxScore = quiz.questions.reduce((sum, question) => sum + question.points, 0);
+    for (const [email, done, startedDaysAgo] of courseProgress) {
+      if (done <= quizLessonIndex) continue;
+      const when = daysAgo(Math.max(0, Math.floor(startedDaysAgo / 2)));
+      await db.quizAttempt.create({
+        data: {
+          quizId: quiz.id,
+          userId: users.get(email)!,
+          answers,
+          score: maxScore,
+          maxScore,
+          percent: 100,
+          passed: true,
+          startedAt: when,
+          submittedAt: when,
+        },
+      });
+    }
+  }
+
   // Keep the main demo student on a visible streak, with a resume position and a note.
   const studentId = users.get("student@example.com")!;
   for (const offset of [0, 1, 2, 3]) {

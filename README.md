@@ -8,6 +8,10 @@ There are **no payments in this app**. People buy on your other platforms; this 
 told who bought what (by you, by a CSV import, or automatically through the API) and gives
 them access.
 
+![Student dashboard](docs/screenshots/student-dashboard.png)
+
+More screenshots are in [`docs/screenshots`](docs/screenshots).
+
 ## What's inside
 
 **Student portal**
@@ -27,7 +31,7 @@ them access.
 
 - Dashboard with students, access grants and learning activity
 - Products of six types (course, workshop, AI agent, workflow, digital product, bundle) with a content builder: sections, lessons, quizzes, live sessions, files & links, changelog
-- Students: search, profile, grant / revoke / extend access, reset progress, view the portal as a student
+- Students: search, profile, grant / revoke / extend access, reset progress, mark complete, suspend, view the portal as a student
 - Access: grant to any email (creates the account and emails a sign-in link), bulk CSV import
 - Announcements, content pages (About, Terms, Privacy…)
 - Settings that restyle and re-word the site: name, logo, brand colours, home page, navigation, sign-in rules, certificates, email, SEO
@@ -129,6 +133,12 @@ src/components        UI kit and feature components
 src/lib               shared helpers and settings definitions
 tests/unit            unit tests
 ```
+
+## Good to know
+
+- A published product with **no price and no purchase link is free to join** for any signed-in visitor (useful for free packs and lead magnets). Everything else is only granted by you, a CSV import or the API. The Access tab of each product shows what visitors will see, and publishing a free product asks for confirmation.
+- Uploaded lesson videos and files are private: they are only served to people with access to the product (or to everyone for lessons marked as a free preview).
+- Live session times are entered in the site's time zone (Settings → General) and shown to each student in their own.
 
 ## Not included (yet)
 

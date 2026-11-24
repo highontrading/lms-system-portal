@@ -1,6 +1,7 @@
 import Link from "next/link";
 import {
-  ArrowRight, Award, Bot, Clock, Download, Library, MessageCircle, Play, ShieldCheck, Sparkles, Video, Workflow, Zap,
+  ArrowRight, Award, Bot, CalendarDays, Clock, Download, Library, MessageCircle, Play, Rocket, ShieldCheck, Sparkles, Star,
+  Users, Video, Workflow, Zap,
   type LucideIcon,
 } from "lucide-react";
 import { ProductCard } from "@/components/site/product-card";
@@ -16,7 +17,8 @@ import { getSettings } from "@/server/settings";
 
 const ICONS: Record<string, LucideIcon> = {
   sparkles: Sparkles, library: Library, play: Play, video: Video, bot: Bot, award: Award, message: MessageCircle,
-  zap: Zap, workflow: Workflow, clock: Clock, shield: ShieldCheck, download: Download,
+  zap: Zap, workflow: Workflow, clock: Clock, shield: ShieldCheck, download: Download, users: Users, rocket: Rocket,
+  calendar: CalendarDays, star: Star,
 };
 
 export default async function HomePage() {

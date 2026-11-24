@@ -67,6 +67,12 @@ async function loadProduct(slug: string) {
   });
 }
 
+/** Sessions that haven't finished yet. */
+function upcomingSessions<T extends { status: string; startsAt: Date; durationMinutes: number }>(sessions: T[]) {
+  const now = Date.now();
+  return sessions.filter((item) => item.status !== "CANCELLED" && item.startsAt.getTime() + item.durationMinutes * 60_000 > now);
+}
+
 type Props = { params: Promise<{ slug: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -104,10 +110,7 @@ export default async function ProductPage({ params }: Props) {
   const isFree = product.price === 0;
   const checkoutUrl = safeHref(product.checkoutUrl);
   const soldOut = seats !== null && seats <= 0 && !hasAccess;
-  const now = Date.now();
-  const upcoming = product.liveSessions.filter(
-    (item) => item.status !== "CANCELLED" && item.startsAt.getTime() + item.durationMinutes * 60_000 > now,
-  );
+  const upcoming = upcomingSessions(product.liveSessions);
   const totalSeconds = product.sections.flatMap((s) => s.lessons).reduce((sum, lesson) => sum + (lesson.durationSeconds ?? 0), 0);
   const sections = product.sections.filter((section) => section.lessons.length > 0);
   const off = discountPercent(product.price, product.compareAtPrice);

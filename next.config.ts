@@ -11,6 +11,8 @@ const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
   poweredByHeader: false,
+  // Lets a production build run alongside a dev server (NEXT_DIST_DIR=.next-build next build).
+  distDir: process.env.NEXT_DIST_DIR || ".next",
   // `BUILD_STANDALONE=1 next build` produces a self-contained server for Docker images.
   output: process.env.BUILD_STANDALONE === "1" ? "standalone" : undefined,
   experimental: {

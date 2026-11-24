@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState, useTransition } from "react";
+import { useCallback, useEffect, useRef, useState, useTransition } from "react";
 import { toast } from "sonner";
 import type { ActionResult } from "@/server/action";
 
@@ -24,6 +24,12 @@ export function useAction<Input, T>(action: (input: Input) => Promise<ActionResu
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [error, setError] = useState<string | null>(null);
 
+  // Always call the callbacks from the latest render, so they never see stale state.
+  const latest = useRef(options);
+  useEffect(() => {
+    latest.current = options;
+  });
+
   const run = useCallback(
     (input: Input) =>
       new Promise<ActionResult<T>>((resolve) => {
@@ -38,24 +44,23 @@ export function useAction<Input, T>(action: (input: Input) => Promise<ActionResu
           }
           // An action that redirected resolves with no value.
           if (!result) return;
+          const current = latest.current;
           if (result.ok) {
             setFieldErrors({});
             setError(null);
-            if (options.success) {
-              toast.success(typeof options.success === "function" ? options.success(result.data) : options.success);
+            if (current.success) {
+              toast.success(typeof current.success === "function" ? current.success(result.data) : current.success);
             }
-            options.onSuccess?.(result.data);
+            current.onSuccess?.(result.data);
           } else {
             setFieldErrors(result.fieldErrors ?? {});
             setError(result.error);
-            if (options.toastError !== false) toast.error(result.error);
-            options.onError?.(result.error);
+            if (current.toastError !== false) toast.error(result.error);
+            current.onError?.(result.error);
           }
           resolve(result);
         });
       }),
-    // The action and callbacks are stable in practice; re-creating `run` each render would defeat memoised children.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [action],
   );
 

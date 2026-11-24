@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 export function TableCard({ className, children }: { className?: string; children: React.ReactNode }) {
   return (
     <div className={cn("overflow-hidden rounded-xl border border-border bg-card shadow-xs", className)}>
-      <div className="overflow-x-auto">{children}</div>
+      <div className="relative overflow-x-auto">{children}</div>
     </div>
   );
 }

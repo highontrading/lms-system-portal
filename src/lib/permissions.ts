@@ -68,10 +68,10 @@ export const ROLE_LABELS: Record<Role, string> = {
 };
 
 export const ROLE_DESCRIPTIONS: Record<Role, string> = {
-  OWNER: "Full access, including team and billing settings. There is always at least one owner.",
+  OWNER: "Full access, including the team and all settings. There is always at least one owner.",
   ADMIN: "Full access to every part of the admin panel.",
-  INSTRUCTOR: "Manages products and content, grades submissions, moderates discussions and posts announcements.",
-  SUPPORT: "Helps students: views and edits students, manages access, views orders and answers tickets.",
+  INSTRUCTOR: "Manages products and their content, and posts announcements.",
+  SUPPORT: "Helps students: views and edits student accounts and manages their access.",
   STUDENT: "Learns in the portal. No admin access.",
 };
 

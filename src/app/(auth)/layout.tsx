@@ -59,7 +59,7 @@ export default async function AuthLayout({ children }: { children: React.ReactNo
 
           {/* A stylised glimpse of the library */}
           <div className="relative ml-auto w-full max-w-md">
-            <div className="absolute -top-6 -left-8 w-64 rotate-[-5deg] rounded-2xl border border-white/12 bg-white/7 p-4 shadow-2xl backdrop-blur-md">
+            <div className="absolute -top-20 -left-2 w-64 rotate-[-4deg] rounded-2xl border border-white/12 bg-white/7 p-4 shadow-2xl backdrop-blur-md">
               <div className="flex items-center gap-3">
                 <span className="grid size-10 place-items-center rounded-xl bg-gradient-to-br from-[#ff8a4c] to-[#e8457a]">
                   <CalendarClock className="size-5" />
